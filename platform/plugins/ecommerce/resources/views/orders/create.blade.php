@@ -1,0 +1,17 @@
+@extends(BaseHelper::getAdminMasterLayoutTemplate())
+@section('content')
+    <div class="max-width-1200" id="main-order">
+        <create-order :currency="'{{ get_application_currency()->symbol }}'" :zip_code_enabled="{{ (int)EcommerceHelper::isZipCodeEnabled() }}"></create-order>
+    </div>
+@stop
+
+@push('header')
+    <script>
+        'use strict';
+
+        window.trans = window.trans || {};
+        window.payment_cod_name = JSON.parse('{!! addslashes(json_encode(setting('payment_cod_name', 'cod'))) !!}');
+
+        window.trans.order = JSON.parse('{!! addslashes(json_encode(trans('plugins/ecommerce::order'))) !!}');
+    </script>
+@endpush
